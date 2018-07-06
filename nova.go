@@ -8,7 +8,7 @@ import (
 )
 
 // ContextKey key in nova.Context
-const ContextKey = "nova.orm"
+const ContextKey = "_orm"
 
 // Options options structure
 type Options struct {
