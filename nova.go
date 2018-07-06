@@ -7,7 +7,7 @@ import (
 	"github.com/novakit/nova"
 )
 
-// ContextKey key in request context
+// ContextKey key in nova.Context
 const ContextKey = "nova.orm"
 
 // Options options structure
@@ -58,7 +58,7 @@ func Handler(opts ...Options) nova.HandlerFunc {
 			}
 		}
 		// inject to ctx
-		ctx.Set(ContextKey, db)
+		ctx.Values[ContextKey] = db
 		// invoke next handler
 		ctx.Next()
 		// close instance if dedicated
@@ -71,6 +71,6 @@ func Handler(opts ...Options) nova.HandlerFunc {
 
 // Extract extract previous injected *DB
 func Extract(ctx *nova.Context) (db *DB) {
-	db, _ = ctx.Value(ContextKey).(*DB)
+	db, _ = ctx.Values[ContextKey].(*DB)
 	return
 }
